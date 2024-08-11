@@ -1,53 +1,14 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  config = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 500
-
-    require("which-key").setup({
-      plugins = {
-        marks = true,
-        registers = true,
-        spelling = {
-          enabled = true,
-          suggestions = 9,
-        },
-        presets = {
-          operators = true,
-          motions = true,
-          text_objects = true,
-          windows = true,
-          nav = true,
-          z = true,
-          g = true,
-        },
-      },
-      operators = { gc = "Comments" },
-      icons = {
-        breadcrumb = "»",
-        separator = "➜",
-        group = "+",
-      },
-      window = {
-        border = "none",
-        position = "bottom",
-        margin = { 0, 0, 0, 0 },
-        padding = { 1, 0, 1, 0 },
-      },
-      layout = {
-        height = { min = 1, max = 25 },
-        width = { min = 20, max = 50 },
-        spacing = 1,
-        align = "center",
-      },
-      ignore_missing = false,
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
-      show_help = true,
-      triggers = "auto",
-      triggers_blacklist = {
-        n = { "o", "O" },
-      },
-    })
-  end,
+  opts = {},
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+  },
 }
