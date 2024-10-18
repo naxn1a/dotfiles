@@ -115,6 +115,11 @@
         };
       };
 
+      # Darwin-specific fonts
+      fonts.packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraMono" ]; })
+      ];
+
       # Darwin-specific system settings
       system.defaults = {
         dock.autohide = true;
