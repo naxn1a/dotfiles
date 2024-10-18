@@ -1,158 +1,220 @@
 {
-  description = "Naxn1a Darwin system flake";
+  description = "Cross-platform development environment";
 
   inputs = {
+    # Core inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    
+    # Darwin-specific
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+    # Home Manager for Linux and WSL2
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Common overlays
+    rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, ... }:
-  let
-    configuration = { pkgs, config, ... }: {
+  outputs = inputs@{ 
+    self, 
+    nixpkgs, 
+    nix-darwin, 
+    home-manager, 
+    nix-homebrew, 
+    rust-overlay,
+    ... 
+  }: let
+    # System types
+    supportedSystems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+    
+    # Helper function to generate configurations for each system
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      # Define the hostname of the system.
-      nixpkgs.config = {
-        allowUnfree = true;
+    # Shared configuration for all systems
+    sharedOverlays = [
+      rust-overlay.overlays.default
+    ];
+
+    # Common packages for all systems
+    commonPackages = pkgs: with pkgs; [
+      # Development tools
+      git
+      gh
+      neovim
+      tmux
+      (rust-bin.stable.latest.default.override {
+        extensions = [ "rust-src" "rust-analyzer" "clippy" ];
+      })
+      go
+      nodePackages_latest.nodejs
+      python3
+      bun
+
+      # Terminal utilities
+      kitty
+      bat
+      fzf
+      ripgrep
+      tree
+      eza
+      fd
+    ];
+
+    # Shared shell configuration
+    sharedShellInit = ''
+      export PATH=$HOME/.local/bin:$PATH
+      export EDITOR=nvim
+    '';
+
+    # Darwin-specific configuration
+    darwinConfig = { pkgs, config, ... }: {
+      nixpkgs = {
+        config = {
+          allowUnfree = true;
+          allowInsecure = false;
+        };
+        overlays = sharedOverlays;
       };
 
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [
-          pkgs.kitty
-          pkgs.chezmoi
-          pkgs.mkalias
-          pkgs.neovim
-          pkgs.tmux
-          pkgs.git
-          pkgs.lazygit
-          pkgs.lazydocker
-          pkgs.vscode
-          pkgs.bun
-          pkgs.bat
-          pkgs.fzf
-          pkgs.ripgrep
-          pkgs.ngrok
-          pkgs.tree
-          pkgs.go
-          pkgs.rustup
-          pkgs.raycast
-          pkgs.discord
-          pkgs.obsidian
-        ];
+      # Darwin-specific packages
+      environment.systemPackages = commonPackages pkgs;
 
-      # Homebrew.
+      # Darwin-specific homebrew
       homebrew = {
         enable = true;
         brews = [
           "mas"
           "nvm"
+          "lazygit"
+          "lazydocker"
+          "tree"
+          "ngrok/ngrok/ngrok"
+          "chezmoi"
         ];
         casks = [
           "hammerspoon"
           "docker"
+          "visual-studio-code"
+          "raycast"
+          "discord"
+          "obsidian"
           "dotnet-sdk"
-
+          "google-chrome"
         ];
-        masApps = {
-          "Pages" = 409201541;
-          "Keynote" = 409183694;
-          "Numbers" = 409203825;
-          "Xcode" = 497799835;
-          "Telegram" = 747648890;
+        onActivation = {
+          cleanup = "zap";
+          autoUpdate = true;
+          upgrade = true;
         };
-        onActivation.cleanup = "zap";
-        onActivation.autoUpdate = true;
-        onActivation.upgrade = true;
       };
 
-      # Font configuration.
-      fonts.packages = [
-        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-      ];
-
-      # Script mkalias to create aliases for nix packages.
-      system.activationScripts.applications.text = let
-        env = pkgs.buildEnv {
-          name = "system-applications";
-          paths = config.environment.systemPackages;
-          pathsToLink = "/Applications";
-        };
-      in
-        pkgs.lib.mkForce ''
-        # Set up applications.
-        echo "setting up /Applications..." >&2
-        rm -rf /Applications/Nix\ Apps
-        mkdir -p /Applications/Nix\ Apps
-        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-        while read src; do
-          app_name=$(basename "$src")
-          echo "copying $src" >&2
-          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-        done
-      '';
-
-      # System defaults.
+      # Darwin-specific system settings
       system.defaults = {
         dock.autohide = true;
-        finder.FXPreferredViewStyle = "Nlsv";
-        loginwindow.GuestEnabled = false;
-        NSGlobalDomain.AppleICUForce24HourTime = true;
-        NSGlobalDomain.AppleInterfaceStyle = "Dark";
-        NSGlobalDomain.KeyRepeat = 2;
+        finder.AppleShowAllExtensions = true;
+        NSGlobalDomain = {
+          AppleInterfaceStyle = "Dark";
+          InitialKeyRepeat = 15;
+          KeyRepeat = 2;
+        };
       };
 
-      # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
-      # nix.package = pkgs.nix;
+      programs.zsh.enable = true;
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-
-      # Create /etc/zshrc that loads the nix-darwin environment.
-      programs.zsh.enable = true;  # default shell on catalina
-      # programs.fish.enable = true;
-
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 5;
-
-      # The platform the configuration will be used on.
-      # nixpkgs.hostPlatform = "x86_64-darwin"; # default
-      nixpkgs.hostPlatform = "aarch64-darwin";
-    };
-  in
-  {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."naxn1a" = nix-darwin.lib.darwinSystem {
-      modules = [
-        configuration
-        nix-homebrew.darwinModules.nix-homebrew
-        {
-          nix-homebrew = {
-            # Enable Homebrew support.
-            enable = true;
-
-            # Apple Silicon Only
-            enableRosetta = true;
-
-            # User owning the Homebrew prefix.
-            user = "naxn1a";
-
-            # Automatically migrate existing Homebrew installations.
-            autoMigrate = true;
-          };
-        }
-      ];
+      system.stateVersion = 4;
     };
 
-    # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."naxn1a".pkgs;
+    # Linux/WSL2 configuration using home-manager
+    homeManagerConfig = { pkgs, config, ... }: {
+      home = {
+        username = "naxn1a";  # Change this to your username
+        homeDirectory = "/home/naxn1a";  # Change this to your home directory
+        stateVersion = "23.11";
+
+        packages = commonPackages pkgs;
+
+        sessionVariables = {
+          EDITOR = "nvim";
+        };
+      };
+
+      programs = {
+        home-manager.enable = true;
+
+        git = {
+          enable = true;
+          userName = "";
+          userEmail = "";
+        };
+
+        zsh = {
+          enable = true;
+          initExtra = sharedShellInit;
+        };
+
+        # Add VSCode for Linux
+        vscode = {
+          enable = true;
+          package = pkgs.vscode;
+        };
+      };
+
+      # WSL2-specific configuration
+      targets.genericLinux.enable = true;
+    };
+
+  in {
+    # Darwin configuration
+    darwinConfigurations = {
+      "naxn1a" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";  # Change this according to your Mac's architecture
+        modules = [
+          darwinConfig
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = "naxn1a";  # Change this to your username
+              autoMigrate = true;
+            };
+          }
+        ];
+      };
+    };
+
+    # Linux/WSL2 configuration
+    homeConfigurations = {
+      "naxn1a" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";  # Change this according to your system
+          config.allowUnfree = true;
+          overlays = sharedOverlays;
+        };
+        modules = [ homeManagerConfig ];
+      };
+    };
+
+    # Development shell for each system
+    devShells = forAllSystems (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = sharedOverlays;
+      };
+    in {
+      default = pkgs.mkShell {
+        buildInputs = commonPackages pkgs;
+        shellHook = sharedShellInit;
+      };
+    });
   };
 }

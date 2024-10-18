@@ -1,30 +1,39 @@
 # Naxn1a's dotfiles
 
-## Nix package manager
-### Install [nixos](https://nixos.org/) package manager
+## Install Nix and enable flakes
 ```bash
-# macos
+# MacOS
 $ sh <(curl -L https://nixos.org/nix/install)
+$ mkdir -p ~/.config/nix
+$ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
-# windows (wsl2) & linux
+# Linux
 $ sh <(curl -L https://nixos.org/nix/install) --daemon
+
+# Windows (WSL2)
+$ wsl --install
+$ sh <(curl -L https://nixos.org/nix/install) --no-daemon
 ```
 
-### Clone repository
+## Clone your config
 ```bash
-$ git clone https://github.com/Naxn1a/dotfiles.git
+$ git clone https://github.com/Naxn1a/dotfiles.git ~/.local/share/chezmoi
 ```
 
-### Install package
+## Build and activate
 ```bash
-$ nix run nix-darwin --extra-experimental-features "nix-command flakes" -- switch --flake ~/$path#naxn1a
+# MacOS
+$ darwin-rebuild switch --flake .#naxn1a
+
+# Linux & Windows (WSL2)
+$ home-manager switch --flake .#naxn1a
 ```
 
 ## Chezmoi
 ```bash
-$ chezmoi init https://github.com/Naxn1a/dotfiles.git
-
+# See what changes 
 $ chezmoi diff
 
+# Apply the changes
 $ chezmoi apply -v
 ```
