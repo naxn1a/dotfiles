@@ -23,9 +23,13 @@ $ git clone https://github.com/Naxn1a/dotfiles.git ~/.local/share/chezmoi
 ## Build and activate
 ```bash
 # MacOS
+$ nix run nix-darwin -- switch --flake .#naxn1a
+
 $ darwin-rebuild switch --flake .#naxn1a
 
 # Linux & Windows (WSL2)
+$ nix run home-manager -- init --switch .
+
 $ home-manager switch --flake .#naxn1a
 ```
 
