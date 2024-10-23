@@ -45,6 +45,7 @@ return {
     require('mason-lspconfig').setup({
       ensure_installed = {
         'ts_ls',
+        'tsserver',
         'eslint',
         'rust_analyzer',
         'gopls',

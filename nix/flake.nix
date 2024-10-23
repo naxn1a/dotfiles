@@ -55,6 +55,7 @@
       go
       nodePackages_latest.nodejs
       python3
+      jdk
       bun
 
       # Terminal utilities
