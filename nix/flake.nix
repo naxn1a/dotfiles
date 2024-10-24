@@ -1,5 +1,5 @@
 {
-  description = "Cross-platform development environment";
+  description = "Naxn1a development environment";
 
   inputs = {
     # Core inputs
@@ -53,7 +53,6 @@
         extensions = [ "rust-src" "rust-analyzer" "clippy" ];
       })
       go
-      nodePackages_latest.nodejs
       python3
       bun
 
@@ -65,6 +64,9 @@
       tree
       eza
       fd
+
+      # Utility
+      mkalias
     ];
 
     # Shared shell configuration
@@ -90,18 +92,15 @@
       homebrew = {
         enable = true;
         brews = [
-          "mas"
           "nvm"
           "lazygit"
           "lazydocker"
           "tree"
-          "ngrok/ngrok/ngrok"
           "chezmoi"
         ];
         casks = [
           "hammerspoon"
           "docker"
-          "visual-studio-code"
           "raycast"
           "discord"
           "obsidian"
@@ -120,9 +119,32 @@
         (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraMono" ]; })
       ];
 
+      # Activation script
+      system.activationScripts.applications.text = let
+        env = pkgs.buildEnv {
+          name = "system-applications";
+          paths = config.environment.systemPackages;
+          pathsToLink = "/Applications";
+        };
+      in
+        pkgs.lib.mkForce ''
+        # Set up applications.
+        echo "setting up /Applications..." >&2
+        rm -rf /Applications/Nix\ Apps
+        mkdir -p /Applications/Nix\ Apps
+        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
+        while read src; do
+          app_name=$(basename "$src")
+          echo "copying $src" >&2
+          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+        done
+      '';
+
       # Darwin-specific system settings
       system.defaults = {
         dock.autohide = true;
+        finder.FXPreferredViewStyle = "nlsv";
+        loginwindow.GuestEnabled = false;
         finder.AppleShowAllExtensions = true;
         NSGlobalDomain = {
           AppleInterfaceStyle = "Dark";
