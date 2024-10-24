@@ -1,7 +1,22 @@
-# alias
+# ls
+alias l="ls -lah"
+
+# Git
+alias gc="git clone"
+alias gs="git status"
+alias gpush="git push"
+alias gpull="git pull"
+
+# Neovim
 alias nv="nvim"
+
+# Docker
 alias dcud="docker-compose up -d"
 alias dcdv="docker-compose down -v"
+
+# Lazy
+alias lzg="lazygit"
+alias lzd="lazydocker"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -109,12 +124,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Homebrew
-export PATH="/opt/homebrew:$PATH"
-
-# nvm
-NVM_DIR=~/.nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # bun completions
 [ -s "/Users/naxn1a/.bun/_bun" ] && source "/Users/naxn1a/.bun/_bun"
