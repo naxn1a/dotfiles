@@ -54,7 +54,6 @@
       })
       go
       python3
-      bun
 
       # Terminal utilities
       bat
@@ -89,6 +88,7 @@
         enable = true;
         brews = [
           "nvm"
+          "oven-sh/bun/bun"
           "lazygit"
           "lazydocker"
           "tree"
@@ -119,7 +119,7 @@
       # Darwin-specific system settings
       system.defaults = {
         dock.autohide = true;
-        finder.FXPreferredViewStyle = "nlsv";
+        finder.FXPreferredViewStyle = "Nlsv";
         loginwindow.GuestEnabled = false;
         finder.AppleShowAllExtensions = true;
         NSGlobalDomain = {
