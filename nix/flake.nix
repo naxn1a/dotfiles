@@ -88,7 +88,6 @@
         enable = true;
         brews = [
           "nvm"
-          "oven-sh/bun/bun"
           "lazygit"
           "lazydocker"
           "tree"
