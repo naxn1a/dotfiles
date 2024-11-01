@@ -49,10 +49,6 @@
       gh
       neovim
       tmux
-      (rust-bin.stable.latest.default.override {
-        extensions = [ "rust-src" "rust-analyzer" "clippy" ];
-      })
-      go
       python3
 
       # Terminal utilities
@@ -92,6 +88,7 @@
           "lazydocker"
           "tree"
           "chezmoi"
+          "go"
         ];
         casks = [
           "kitty"
