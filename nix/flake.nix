@@ -49,7 +49,6 @@
       gh
       neovim
       tmux
-      python3
 
       # Terminal utilities
       bat
@@ -89,6 +88,7 @@
           "tree"
           "chezmoi"
           "go"
+          "pyenv"
         ];
         casks = [
           "kitty"
