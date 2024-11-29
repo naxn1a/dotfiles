@@ -99,6 +99,7 @@
           "obsidian"
           "dotnet-sdk"
           "google-chrome"
+          "zen-browser"
         ];
         onActivation = {
           cleanup = "zap";
