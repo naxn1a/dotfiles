@@ -89,6 +89,7 @@
           "chezmoi"
           "go"
           "pyenv"
+          "wget"
         ];
         casks = [
           "kitty"
