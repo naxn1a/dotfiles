@@ -110,8 +110,9 @@
       };
 
       # Darwin-specific fonts
-      fonts.packages = with pkgs; [
-        (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraMono" ]; })
+      fonts.packages = [
+	      pkgs.nerd-fonts.jetbrains-mono
+      	pkgs.nerd-fonts.fira-mono
       ];
 
       # Darwin-specific system settings
