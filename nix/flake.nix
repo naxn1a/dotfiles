@@ -101,6 +101,7 @@
           "dotnet-sdk"
           "google-chrome"
           "zen-browser"
+          "mullvadvpn"
         ];
         onActivation = {
           cleanup = "zap";
