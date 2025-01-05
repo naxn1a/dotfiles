@@ -14,8 +14,9 @@ alias nv="nvim"
 alias tx="tmux"
 
 # Docker
-alias dcud="docker-compose up -d"
-alias dcdv="docker-compose down -v"
+alias dku="docker-compose up -d"
+alias dkd="docker-compose down -v"
+alias dkdv="docker-compose down -v"
 
 # Lazy
 alias lzg="lazygit"
