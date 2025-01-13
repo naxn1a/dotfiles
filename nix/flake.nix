@@ -90,6 +90,7 @@
           "go"
           "pyenv"
           "wget"
+          "exiftool"
         ];
         casks = [
           "kitty"
