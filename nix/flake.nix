@@ -91,6 +91,7 @@
           "pyenv"
           "wget"
           "exiftool"
+          "ollama"
         ];
         casks = [
           "kitty"
