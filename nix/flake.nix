@@ -104,6 +104,7 @@
           "google-chrome"
           "zen-browser"
           "mullvadvpn"
+          "ghostty"
         ];
         onActivation = {
           cleanup = "zap";

@@ -6,6 +6,7 @@ alias gcl="git clone"
 alias gs="git status"
 alias gpush="git push"
 alias gpull="git pull"
+alias gco="git checkout"
 
 # Neovim
 alias nv="nvim"
@@ -14,9 +15,15 @@ alias nv="nvim"
 alias tx="tmux"
 
 # Docker
-alias dku="docker-compose up -d"
-alias dkd="docker-compose down -v"
-alias dkdv="docker-compose down -v"
+alias dks="docker compose ps"
+alias dku="docker compose up -d"
+alias dkd="docker compose down"
+alias dkdv="docker compose down -v"
+alias dkl="docker compose logs -f"
+alias dkb="docker build"
+alias dkci="docker image prune -af"
+alias dkcv="docker volume prune -af"
+alias dkcb="docker builder prune -af"
 
 # Lazy
 alias lzg="lazygit"
