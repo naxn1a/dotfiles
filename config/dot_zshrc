@@ -12,7 +12,7 @@ alias gco="git checkout"
 alias nv="nvim"
 
 # Tmux
-alias tx="tmux"
+alias tm="tmux"
 
 # Docker
 alias dks="docker compose ps"
