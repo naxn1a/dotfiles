@@ -132,10 +132,9 @@
         };
       };
 
-      services.nix-daemon.enable = true;
       programs.zsh.enable = true;
 
-      system.stateVersion = 4;
+      system.stateVersion = 6;
     };
 
     # Linux/WSL2 configuration using home-manager
