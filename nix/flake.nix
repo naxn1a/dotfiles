@@ -57,6 +57,7 @@
       tree
       eza
       fd
+      yazi
     ];
 
     # Shared shell configuration
