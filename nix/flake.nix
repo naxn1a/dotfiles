@@ -106,6 +106,7 @@
           "zen-browser"
           "mullvadvpn"
           "ghostty"
+          "ngrok"
         ];
         onActivation = {
           cleanup = "zap";
