@@ -104,6 +104,7 @@
           "dotnet-sdk"
           "google-chrome"
           "zen-browser"
+          "brave-browser"
           "mullvadvpn"
           "ghostty"
           "ngrok"
