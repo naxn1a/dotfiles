@@ -108,6 +108,7 @@
           "mullvadvpn"
           "ghostty"
           "ngrok"
+          "utm"
         ];
         onActivation = {
           cleanup = "zap";
