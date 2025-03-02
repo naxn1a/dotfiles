@@ -93,6 +93,7 @@
           "wget"
           "exiftool"
           "ollama"
+          "argon2"
         ];
         casks = [
           "kitty"
