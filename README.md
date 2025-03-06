@@ -15,7 +15,7 @@ $ sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
 ## Clone your config
 ```bash
-$ git clone https://github.com/Naxn1a/dotfiles.git ~/.local/share/chezmoi
+$ git clone https://github.com/naxn1a/dotfiles.git ~/.local/share/chezmoi
 ```
 
 ## Build and activate
@@ -39,3 +39,4 @@ $ chezmoi diff
 # Apply the changes
 $ chezmoi apply -v
 ```
+
