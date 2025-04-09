@@ -110,6 +110,7 @@
           "ghostty"
           "ngrok"
           "utm"
+          "zed"
         ];
         onActivation = {
           cleanup = "zap";
