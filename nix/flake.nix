@@ -92,12 +92,9 @@
           "pyenv"
           "wget"
           "exiftool"
-          "ollama"
-          "argon2"
         ];
         casks = [
           "kitty"
-          "hammerspoon"
           "docker"
           "raycast"
           "discord"
