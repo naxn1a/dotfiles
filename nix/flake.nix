@@ -106,6 +106,7 @@
           "ngrok"
           "utm"
           "zed"
+          "claude"
         ];
         onActivation = {
           cleanup = "zap";
