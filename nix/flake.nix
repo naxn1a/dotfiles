@@ -94,14 +94,12 @@
           "exiftool"
         ];
         casks = [
-          "kitty"
           "docker"
           "raycast"
           "discord"
           "obsidian"
           "dotnet-sdk"
           "google-chrome"
-          "zen-browser"
           "brave-browser"
           "mullvadvpn"
           "ghostty"
