@@ -15,15 +15,16 @@ alias nv="nvim"
 alias tm="tmux"
 
 # Docker
-alias dks="docker compose ps"
+alias dk="docker"
 alias dku="docker compose up -d"
-alias dkd="docker compose down"
-alias dkdv="docker compose down -v"
+alias dkd="docker compose down -v"
 alias dkl="docker compose logs -f"
-alias dkb="docker build"
-alias dkci="docker image prune -af"
-alias dkcv="docker volume prune -af"
-alias dkcb="docker builder prune -af"
+alias dkrmi="docker image prune -af"
+alias dkrmv="docker volume prune -af"
+alias dkrmb="docker builder prune -af"
+
+# podman
+alias pm="podman"
 
 # Lazy
 alias lzg="lazygit"
