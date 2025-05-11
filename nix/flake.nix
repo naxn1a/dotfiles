@@ -92,6 +92,8 @@
           "pyenv"
           "wget"
           "exiftool"
+          "podman"
+          "podman-compose"
         ];
         casks = [
           "docker"
