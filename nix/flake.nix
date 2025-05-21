@@ -124,6 +124,7 @@
       ];
 
       # Darwin-specific system settings
+      system.primaryUser = "naxn1a";
       system.defaults = {
         dock.autohide = true;
         finder.FXPreferredViewStyle = "Nlsv";
