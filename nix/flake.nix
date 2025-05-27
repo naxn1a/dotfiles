@@ -33,8 +33,6 @@
       gh
       neovim
       tmux
-      zsh
-      oh-my-zsh
       
       # CLI utilities
       curl
@@ -76,6 +74,10 @@
           init.defaultBranch = "main";
           pull.rebase = true;
         };
+      };
+
+      programs.starship = {
+        enable = true;
       };
 
       home.stateVersion = "23.11";
