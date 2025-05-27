@@ -1,12 +1,14 @@
-# ls
-alias l="ls -lah"
+# shell
+alias ll = "eza -la";
+alias la = "eza -a";
+alias l = "eza -l";
+alias vim = "nvim";
+alias cat = "bat";
+alias find = "fd";
+alias grep = "rg";
 
 # Git
-alias gcl="git clone"
 alias gs="git status"
-alias gpush="git push"
-alias gpull="git pull"
-alias gco="git checkout"
 
 # Neovim
 alias nv="nvim"
@@ -15,7 +17,7 @@ alias nv="nvim"
 alias tm="tmux"
 
 # Docker
-alias dk="docker"
+alias dk="docker ps"
 alias dku="docker compose up -d"
 alias dkd="docker compose down -v"
 alias dkl="docker compose logs -f"
@@ -24,7 +26,7 @@ alias dkrmv="docker volume prune -af"
 alias dkrmb="docker builder prune -af"
 
 # podman
-alias pm="podman"
+alias pd="podman"
 
 # Lazy
 alias lzg="lazygit"
