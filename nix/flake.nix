@@ -15,9 +15,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nix-homebrew for better Homebrew integration
+    nix-homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-darwin.follows = "darwin";
+    };
   };
 
-  outputs = { self, nixpkgs, darwin, home-manager }:
+  outputs = { self, nixpkgs, darwin, home-manager, nix-homebrew }:
   let
     # Common packages for all platforms
     commonPackages = pkgs: with pkgs; [
@@ -71,30 +78,6 @@
         };
       };
 
-      programs.tmux = {
-        enable = true;
-        clock24 = true;
-        keyMode = "vi";
-        extraConfig = ''
-          # tmux configuration
-          set -g mouse on
-          set -g base-index 1
-          set -g pane-base-index 1
-          
-          # Key bindings
-          bind | split-window -h
-          bind - split-window -v
-          
-          # Status bar
-          set -g status-style bg=black,fg=white
-        '';
-      };
-
-      programs.direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-      };
-
       home.stateVersion = "23.11";
     };
 
@@ -103,11 +86,27 @@
     darwinConfigurations."naxn1a-darwin" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
-        # Homebrew integration
+        # nix-homebrew integration
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            enable = true;
+            # Apple Silicon Only
+            enableRosetta = true;
+            # User owning the Homebrew prefix
+            user = "naxn1a";
+            # Automatically migrate existing Homebrew installations
+            autoMigrate = true;
+            # Optional: Specify the path to the Homebrew prefix
+            # mutableTaps = false;
+            taps = {};
+          };
+        }
+
+        # Homebrew packages configuration
         {
           homebrew = {
             enable = true;
-            
             brews = [
               "nvm"
               "lazygit"
@@ -121,7 +120,6 @@
               "podman"
               "podman-compose"
             ];
-            
             casks = [
               "docker"
               "raycast"
@@ -136,11 +134,7 @@
               "utm"
               "zed"
               "claude"
-              "beekeeper-studio"
             ];
-            
-            taps = [];
-            
             onActivation = {
               cleanup = "zap";
               autoUpdate = true;
