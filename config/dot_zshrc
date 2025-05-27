@@ -1,11 +1,11 @@
 # shell
-alias ll = "eza -la";
-alias la = "eza -a";
-alias l = "eza -l";
-alias vim = "nvim";
-alias cat = "bat";
-alias find = "fd";
-alias grep = "rg";
+alias ll="eza -la";
+alias la="eza -a";
+alias l="eza -l";
+alias vim="nvim";
+alias cat="bat";
+alias find="fd";
+alias grep="rg";
 
 # Git
 alias gs="git status"
