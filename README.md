@@ -1,7 +1,7 @@
 # Naxn1a's dotfiles
 
 ## Install Nix and enable flakes
-```bash
+```sh
 # MacOS
 $ sh <(curl -L https://nixos.org/nix/install)
 
@@ -14,12 +14,15 @@ $ sh <(curl -L https://nixos.org/nix/install) --no-daemon
 ```
 
 ## Clone this repository
-```bash
+```sh
 $ git clone https://github.com/naxn1a/dotfiles.git ~/.local/share/chezmoi
 ```
 
 ## Nix
-```bash
+```sh
+# 
+$ nix-channel --update
+
 # MacOS
 $ nix run nix-darwin -- switch --flake .#naxn1a
 
@@ -32,7 +35,7 @@ $ home-manager switch --flake .#naxn1a
 ```
 
 ## Chezmoi
-```bash
+```sh
 # See what changes 
 $ chezmoi diff
 
