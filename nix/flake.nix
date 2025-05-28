@@ -33,6 +33,7 @@
       gh
       neovim
       tmux
+      mise
       
       # CLI utilities
       curl
@@ -54,7 +55,6 @@
       
       # Development tools
       fzf
-      direnv
       yazi
       
       # Programming languages
@@ -110,13 +110,11 @@
           homebrew = {
             enable = true;
             brews = [
-              "nvm"
               "lazygit"
               "lazydocker"
               "tree"
               "chezmoi"
               "go"
-              "pyenv"
               "wget"
               "exiftool"
               "podman"
