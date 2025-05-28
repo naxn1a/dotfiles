@@ -55,7 +55,7 @@ linux-switch:
 	@echo "🐧 Applying Home Manager configuration..."
 	@if ! command -v home-manager >/dev/null 2>&1; then \
 		echo "📦 Installing Home Manager..."; \
-		nix run home-manager/master -- switch --flake ./nix/flake.nix#naxn1a-linux; \
+		nix run home-manager -- switch --flake ./nix/flake.nix#naxn1a-linux; \
 	else \
 		home-manager switch --flake ./nix/flake.nix#naxn1a-linux; \
 	fi

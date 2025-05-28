@@ -13,12 +13,12 @@ $ wsl --install
 $ sh <(curl -L https://nixos.org/nix/install) --no-daemon
 ```
 
-## Clone your config
+## Clone this repository
 ```bash
 $ git clone https://github.com/naxn1a/dotfiles.git ~/.local/share/chezmoi
 ```
 
-## Build and activate
+## Nix
 ```bash
 # MacOS
 $ nix run nix-darwin -- switch --flake .#naxn1a
