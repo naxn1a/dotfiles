@@ -12,15 +12,15 @@
     "light": "One Light",
     "dark": "One Dark"
   },
-  "font_family": ["Fira Code", "JetBrains Mono"],
-  "ui_font_size": 14,
-  "buffer_font_size": 14,
-  "relative_line_numbers": false,
-  "cursor_blink": true,
   "telemetry": {
     "metrics": false,
     "diagnostics": false
   },
+  "ui_font_size": 14,
+  "buffer_font_size": 12,
+  // "buffer_font_family": "Menlo",
+  "font_family": ["Fira Code", "JetBrains Mono"],
+  "show_edit_predictions": true,
   "features": {
     "edit_prediction_provider": "copilot"
   },
