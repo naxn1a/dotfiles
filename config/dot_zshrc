@@ -2,7 +2,6 @@
 alias ll="eza -la";
 alias la="eza -a";
 alias l="eza -l";
-alias vim="nvim";
 alias cat="bat";
 alias find="fd";
 alias grep="rg";
@@ -106,7 +105,7 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-# source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -162,3 +161,4 @@ eval "$(mise activate zsh)"
 # starship
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
+

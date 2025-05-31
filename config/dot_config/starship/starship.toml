@@ -1,203 +1,325 @@
-add_newline = false
+"$schema" = 'https://starship.rs/config-schema.json'
 
-[character]
-success_symbol = '[➜](bold green)'
-error_symbol = '[✗](bold red)'
+add_newline = true
 
-[aws]
-format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+command_timeout = 2000
 
-[bun]
-format = '\[[$symbol($version)]($style)\]'
-
-[c]
-format = '\[[$symbol($version(-$name))]($style)\]'
-
-[cpp]
-format = '\[[$symbol($version(-$name))]($style)\]'
-
-[cmake]
-format = '\[[$symbol($version)]($style)\]'
-
-[cmd_duration]
-format = '\[[⏱ $duration]($style)\]'
-
-[cobol]
-format = '\[[$symbol($version)]($style)\]'
-
-[conda]
-format = '\[[$symbol$environment]($style)\]'
-
-[crystal]
-format = '\[[$symbol($version)]($style)\]'
-
-[daml]
-format = '\[[$symbol($version)]($style)\]'
-
-[dart]
-format = '\[[$symbol($version)]($style)\]'
-
-[deno]
-format = '\[[$symbol($version)]($style)\]'
-
-[docker_context]
-format = '\[[$symbol$context]($style)\]'
-
-[dotnet]
-format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
-
-[elixir]
-format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
-
-[elm]
-format = '\[[$symbol($version)]($style)\]'
-
-[erlang]
-format = '\[[$symbol($version)]($style)\]'
-
-[fennel]
-format = '\[[$symbol($version)]($style)\]'
-
-[fossil_branch]
-format = '\[[$symbol$branch]($style)\]'
-
-[gcloud]
-format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
-
-[git_branch]
-format = '\[[$symbol$branch]($style)\]'
-
-[git_status]
-format = '([\[$all_status$ahead_behind\]]($style))'
-
-[golang]
-format = '\[[$symbol($version)]($style)\]'
-
-[gradle]
-format = '\[[$symbol($version)]($style)\]'
-
-[guix_shell]
-format = '\[[$symbol]($style)\]'
-
-[haskell]
-format = '\[[$symbol($version)]($style)\]'
-
-[haxe]
-format = '\[[$symbol($version)]($style)\]'
-
-[helm]
-format = '\[[$symbol($version)]($style)\]'
-
-[hg_branch]
-format = '\[[$symbol$branch]($style)\]'
-
-[java]
-format = '\[[$symbol($version)]($style)\]'
-
-[julia]
-format = '\[[$symbol($version)]($style)\]'
-
-[kotlin]
-format = '\[[$symbol($version)]($style)\]'
-
-[kubernetes]
-format = '\[[$symbol$context( \($namespace\))]($style)\]'
-
-[lua]
-format = '\[[$symbol($version)]($style)\]'
-
-[memory_usage]
-format = '\[$symbol[$ram( | $swap)]($style)\]'
-
-[meson]
-format = '\[[$symbol$project]($style)\]'
-
-[nim]
-format = '\[[$symbol($version)]($style)\]'
-
-[nix_shell]
-format = '\[[$symbol$state( \($name\))]($style)\]'
-
-[nodejs]
-format = '\[[$symbol($version)]($style)\]'
-
-[ocaml]
-format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
-
-[opa]
-format = '\[[$symbol($version)]($style)\]'
-
-[openstack]
-format = '\[[$symbol$cloud(\($project\))]($style)\]'
+format = """
+$os \
+$directory\
+$git_branch\
+$git_commit\
+$git_status\
+$git_metrics\
+$git_state\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+$package\
+$docker_context\
+$kubernetes\
+$shell\
+$container\
+$jobs\
+${custom.memory_usage}\
+${custom.battery}\
+${custom.keyboard_layout}\
+$time\
+$cmd_duration\
+$status\
+$line_break\
+$character\
+"""
 
 [os]
-format = '\[[$symbol]($style)\]'
+disabled = false
+format = '[$symbol]($style)'
 
-[package]
-format = '\[[$symbol$version]($style)\]'
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
 
-[perl]
-format = '\[[$symbol($version)]($style)\]'
+[directory]
+# style = "fg:color_directory"
+# read_only_style = "fg:color_directory"
+# repo_root_style = "bold fg:color_directory"
+format = "[ $path ]($style)"
+read_only = " "
+home_symbol = "~"
+truncation_symbol = "…/"
+truncation_length = 0
+truncate_to_repo = true
+fish_style_pwd_dir_length = 0
+use_logical_path = true
 
-[php]
-format = '\[[$symbol($version)]($style)\]'
+[git_branch]
+symbol = ""
+style = "purple"
+format = '( [$symbol $branch]($style) )'
+only_attached = true
+ignore_branches = []
+truncation_length = 25
+truncation_symbol = "..."
+always_show_remote = false
+disabled = false
 
-[pijul_channel]
-format = '\[[$symbol$channel]($style)\]'
+[git_commit]
+style = "purple"
+format = "( [($tag)(@$hash)]($style) )"
+commit_hash_length = 7
+only_detached = true
+tag_symbol = "󰓼 "
+tag_disabled = false
+disabled = false
 
-[pixi]
-format = '\[[$symbol$version( $environment)]($style)\]'
+[git_status]
+style = "yellow"
+format = '([$ahead_behind]($style) )([$all_status]($style) )'
+stashed = "*${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+up_to_date = ""
+diverged = "⇡${ahead_count}⇣${behind_count}"
+conflicted = "=${count}"
+deleted = "×${count}"
+renamed = "»${count}"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+ignore_submodules = false
+disabled = false
 
-[pulumi]
-format = '\[[$symbol$stack]($style)\]'
+[git_metrics]
+format = '([([+$added]($added_style))([-$deleted]($deleted_style))](purple) )'
+added_style = "bright-green"
+deleted_style = "bright-red"
+only_nonzero_diffs = true
+disabled = false
 
-[purescript]
-format = '\[[$symbol($version)]($style)\]'
+[git_state]
+style = "bright-red"
+format = '([$state( $progress_current/$progress_total)]($style bold) )'
+rebase = "REBASING"
+merge = "MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+disabled = false
 
-[python]
-format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+[nodejs]
+symbol = ""
+format = '( [$symbol( $version)]($style) )'
 
-[raku]
-format = '\[[$symbol($version-$vm_version)]($style)\]'
-
-[red]
-format = '\[[$symbol($version)]($style)\]'
-
-[ruby]
-format = '\[[$symbol($version)]($style)\]'
+[c]
+symbol = ""
+format = '( [$symbol( $version)]($style) )'
 
 [rust]
-format = '\[[$symbol($version)]($style)\]'
+symbol = "󱘗"
+format = '( [$symbol( $version)]($style) )'
 
-[scala]
-format = '\[[$symbol($version)]($style)\]'
+[golang]
+symbol = "󰟓"
+format = '( [$symbol( $version)]($style) )'
 
-[spack]
-format = '\[[$symbol$environment]($style)\]'
+[php]
+symbol = ""
+format = '( [$symbol( $version)]($style) )'
 
-[sudo]
-format = '\[[as $symbol]($style)\]'
+[java]
+symbol = ""
+format = '( [$symbol( $version)]($style) )'
 
-[swift]
-format = '\[[$symbol($version)]($style)\]'
+[kotlin]
+symbol = ""
+format = '( [$symbol( $version)]($style) )'
 
-[terraform]
-format = '\[[$symbol$workspace]($style)\]'
+[haskell]
+symbol = ""
+format = '( [$symbol( $version)]($style) )'
+
+[python]
+symbol = ""
+format = '( [$symbol( $version)( $virtualenv)]($style) )'
+version_format = '${raw}'
+
+[package]
+disabled = false
+symbol = "󰏗"
+format = '( [$symbol( $version)]($style) )'
+
+[docker_context]
+symbol = ""
+format = '( [$symbol( $context)]($style) )'
+
+[kubernetes]
+symbol = "󱃾"
+format = '( [($symbol( $cluster))]($style) )'
+disabled = false
+
+[shell]
+disabled = false
+format = '[  $indicator ]($style)'
+bash_indicator = "bash"
+fish_indicator = "fish"
+zsh_indicator = "zsh"
+powershell_indicator = "powershell"
+pwsh_indicator = "pwsh"
+ion_indicator = "ion"
+elvish_indicator = "elvish"
+tcsh_indicator = "tcsh"
+xonsh_indicator = "xonsh"
+cmd_indicator = "cmd"
+nu_indicator = "nu"
+unknown_indicator = ""
+
+[container]
+style = "blue"
+format = '( [$symbol $name]($style) )'
+
+[jobs]
+symbol = "󰒋"
+format = '( [$symbol( $number)]($style) )'
+symbol_threshold = 1
+number_threshold = 1
+
+[custom.memory_usage]
+command = "starship module memory_usage"
+when = '[ "${STARSHIP_COCKPIT_MEMORY_USAGE_ENABLED:-false}" = "true" ]'
+shell = "sh"
+format = "( $output )"
+disabled = false
+
+[memory_usage]
+threshold = 0
+symbol = "󰓅"
+format = '( [$symbol( ${ram})]($style) )'
+disabled = false
+
+[custom.battery]
+command = """
+battery_info=$(starship module battery)
+if [ -n "$battery_info" ]; then
+    percent=$(echo "$battery_info" | grep -o '[0-9]*%' | sed 's/%//')
+    if [ "$percent" -le "${STARSHIP_COCKPIT_BATTERY_THRESHOLD:-0}" ]; then
+        echo "$battery_info" | sed 's/%%/%/'
+    fi
+fi
+"""
+when = '[ "${STARSHIP_COCKPIT_BATTERY_ENABLED:-false}" = "true" ]'
+shell = "sh"
+format = "( $output )"
+disabled = false
+
+[battery]
+full_symbol = "󰁹"
+charging_symbol = "󰂄"
+discharging_symbol = "󰂃"
+unknown_symbol = "󰂑"
+empty_symbol = "󰂎"
+format = '( [$symbol( $percentage)]($style) )'
+disabled = false
+
+[[battery.display]]
+threshold = 10
+style = "bold bright-red"
+
+[[battery.display]]
+threshold = 20
+style = "bright-yellow"
+
+[[battery.display]]
+threshold = 100
+style = ""
 
 [time]
-format = '\[[$time]($style)\]'
+disabled = false
+time_format = "%R"
+style = ''
+format = '( [󰔛 $time]($style) )'
 
-[username]
-format = '\[[$user]($style)\]'
+[cmd_duration]
+min_time = 2000
+format = '( [󱫑 $duration]($style) )'
+style = ''
+show_milliseconds = false
+disabled = false
 
-[vagrant]
-format = '\[[$symbol($version)]($style)\]'
+[status]
+disabled = false
+format = '( [$symbol( $common_meaning)( $signal_name)]($style) )'
+map_symbol = true
+pipestatus = true
+symbol = '󰅙'
+success_symbol = ''
+not_executable_symbol = '󰂭'
+not_found_symbol = '󰍉'
+sigint_symbol = '󰐊'
+signal_symbol = '󱐋'
+style = 'bold bright-red'
+recognize_signal_code = true
 
-[vlang]
-format = '\[[$symbol($version)]($style)\]'
+[line_break]
+disabled = false
 
-[zig]
-format = '\[[$symbol($version)]($style)\]'
+[character]
+disabled = false
+success_symbol = '[](bold bright-green)'
+error_symbol = '[](bold bright-red)'
+vimcmd_symbol = '[](bold bright-green)'
+vimcmd_replace_one_symbol = '[](bold purple)'
+vimcmd_replace_symbol = '[](bold purple)'
+vimcmd_visual_symbol = '[](bold yellow)'
 
-[solidity]
-format = '\[[$symbol($version)]($style)\]'
+[custom.keyboard_layout]
+command = """
+
+# Set env variables if you want to use layout aliases (in uppercase)
+#     export STARSHIP_COCKPIT_KEYBOARD_LAYOUT_ABC=ENG
+#     export STARSHIP_COCKPIT_KEYBOARD_LAYOUT_UKRAINIAN=UKR
+# 
+# Implementations:
+#     macOS
+
+if [ "$(uname -s)" = "Darwin" ]; then
+        input_source=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID)
+        layout_id=$(echo "$input_source" | cut -d '.' -f4)
+        layout=$(printenv "STARSHIP_COCKPIT_KEYBOARD_LAYOUT_$(echo "$layout_id" | tr '[:lower:]' '[:upper:]')")
+        echo "$layout" || echo "$layout_id"
+fi
+
+"""
+symbol = "󰌌"
+style = ""
+format = '( [$symbol $output]($style) )'
+when = '[ "${STARSHIP_COCKPIT_KEYBOARD_LAYOUT_ENABLED:-false}" = "true" ]'
+shell = "sh"
+disabled = false
+

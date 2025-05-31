@@ -18,8 +18,7 @@
   },
   "ui_font_size": 14,
   "buffer_font_size": 12,
-  // "buffer_font_family": "Menlo",
-  "font_family": ["Fira Code", "JetBrains Mono"],
+  "buffer_font_family": "FiraMono Nerd Font",
   "show_edit_predictions": true,
   "features": {
     "edit_prediction_provider": "copilot"
