@@ -29,6 +29,7 @@
     # Common packages for all platforms
     commonPackages = pkgs: with pkgs; [
       # Core tools
+      nushell
       git
       gh
       neovim
