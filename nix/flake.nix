@@ -128,7 +128,7 @@
               "dotnet-sdk"
               "google-chrome"
               "brave-browser"
-              "mullvadvpn"
+              "mullvad-vpn"
               "ghostty"
               "ngrok"
               "utm"
