@@ -122,7 +122,7 @@
               "podman-compose"
             ];
             casks = [
-              "docker"
+              "docker-desktop"
               "raycast"
               "discord"
               "obsidian"
