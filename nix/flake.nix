@@ -120,6 +120,7 @@
               "exiftool"
               "podman"
               "podman-compose"
+              "gemini-cli"
             ];
             casks = [
               "docker-desktop"

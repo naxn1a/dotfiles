@@ -13,3 +13,4 @@ macos-titlebar-style = transparent
 
 background-opacity = 0.8
 background-blur = true
+keybind = shift+enter=text:\n
