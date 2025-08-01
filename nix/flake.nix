@@ -34,7 +34,6 @@
       gh
       neovim
       tmux
-      mise
       
       # CLI utilities
       curl
@@ -118,6 +117,7 @@
               "go"
               "wget"
               "exiftool"
+              "mise"
               "podman"
               "podman-compose"
               "gemini-cli"
