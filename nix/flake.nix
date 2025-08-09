@@ -136,6 +136,7 @@
               "utm"
               "zed"
               "claude"
+              "krita"
             ];
             onActivation = {
               cleanup = "zap";
