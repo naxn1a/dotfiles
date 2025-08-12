@@ -17,6 +17,7 @@ help:
 	@echo "  check          - Check configuration syntax"
 	@echo "  format         - Format nix files"
 	@echo "  status         - Show system status"
+	@echo "  doctor         - Update all tools"
 	@echo ""
 	@echo "Platform-specific shortcuts:"
 	@echo "  mac           - Alias for darwin-switch"
@@ -126,6 +127,16 @@ status:
 	@echo ""
 	@echo "📁 Configuration files:"
 	@ls -la flake.* 2>/dev/null || echo "   No flake files found"
+
+doctor:
+	@echo "🩺 Running doctor to update all tools..."
+	@echo "[*] Updating Brew..."
+	brew update && brew upgrade
+	@echo "[*] Updating bun..."
+	bun upgrade
+	@echo "[*] Updating rust..."
+	rustup update
+	@echo "✅ Doctor completed successfully!"
 
 # Quick setup for new machines
 setup:
