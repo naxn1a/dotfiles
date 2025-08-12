@@ -30,6 +30,15 @@ alias dkrmb="docker builder prune -af"
 # Podman
 alias pd="podman"
 
+# Podman Compose
+alias pdc="podman compose"
+alias pdcu="podman compose up -d"
+alias pdcd="podman compose down -v"
+alias pdcl="podman compose logs -f"
+alias pdrmi="podman image prune -af"
+alias pdrmv="podman volume prune -af"
+alias pdrmb="podman builder prune -af"
+
 # Lazy
 alias lzg="lazygit"
 alias lzd="lazydocker"
