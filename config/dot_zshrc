@@ -20,9 +20,9 @@ alias tm="tmux"
 
 # Docker
 alias dk="docker ps"
-alias dku="docker compose up -d"
-alias dkd="docker compose down -v"
-alias dkl="docker compose logs -f"
+alias dkcu="docker compose up -d"
+alias dkcd="docker compose down -v"
+alias dkcl="docker compose logs -f"
 alias dkrmi="docker image prune -af"
 alias dkrmv="docker volume prune -af"
 alias dkrmb="docker builder prune -af"
