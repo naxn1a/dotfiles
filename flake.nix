@@ -154,8 +154,8 @@
       systemd
 
       # Package managers
-      apt
-      snapd
+      # apt - not available in nixpkgs (system package manager)
+      # snapd - not available in nixpkgs (system package manager)
 
       # Desktop integration
       xdg-utils
@@ -175,9 +175,9 @@
       wslu
       powershell
 
-      # Windows development
-      mingw-w64
-      msvc
+      # Windows development (cross-compilation tools)
+      # mingw-w64 - not available as direct package
+      # msvc - not available in nixpkgs
     ];
 
     # Enhanced home-manager configuration for Expert Engineers
@@ -621,12 +621,12 @@
 
               # Package managers
               flatpak
-              snapd
+              # snapd - not available in nixpkgs (system package manager)
 
               # Network tools
-              networkmanager
-              iw
-              wireless-tools
+              # networkmanager - not available in nixpkgs (system service)
+              # iw - not available in nixpkgs (system tool)
+              # wireless-tools - not available in nixpkgs (system tool)
             ];
 
             # Enhanced Linux shell configuration
@@ -705,14 +705,8 @@
               wslu
               wsl-open
 
-              # Development tools for Windows
-              mingw-w64
-              msvc
-
               # Windows-specific tools
               powershell
-              coreutils
-              findutils
 
               # Additional tools for WSL development
               gcc

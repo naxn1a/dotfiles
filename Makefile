@@ -82,7 +82,12 @@ ifeq ($(UNAME_S),Darwin)
 	@echo "$(BLUE)🧹 Cleaning up build artifacts...$(RESET)"
 	rm -rf result
 else
-	home-manager switch --flake .#$(CONFIG)
+	@if command -v home-manager >/dev/null 2>&1; then \
+		home-manager switch --flake .#$(CONFIG); \
+	else \
+		echo "$(YELLOW)🔧 home-manager not found in PATH, using nix run...$(RESET)"; \
+		nix run nixpkgs#home-manager -- switch --flake .#$(CONFIG); \
+	fi
 endif
 	@echo ""
 	@echo "$(GREEN)✅ Installation complete!$(RESET)"
@@ -100,7 +105,12 @@ switch: ## Switch to current configuration (no update)
 ifeq ($(UNAME_S),Darwin)
 	sudo $(SWITCH_CMD) --flake .#$(CONFIG)
 else
-	$(SWITCH_CMD) --flake .#$(CONFIG)
+	@if command -v home-manager >/dev/null 2>&1; then \
+		$(SWITCH_CMD) --flake .#$(CONFIG); \
+	else \
+		echo "$(YELLOW)🔧 home-manager not found in PATH, using nix run...$(RESET)"; \
+		nix run nixpkgs#home-manager -- switch --flake .#$(CONFIG); \
+	fi
 endif
 	@echo "$(GREEN)✅ Switch complete!$(RESET)"
 
@@ -229,7 +239,12 @@ ifeq ($(UNAME_S),Darwin)
 	@echo "$(BLUE)🧹 Cleaning up build artifacts...$(RESET)"
 	rm -rf result
 else
-	home-manager switch --flake .#$(CONFIG)
+	@if command -v home-manager >/dev/null 2>&1; then \
+		home-manager switch --flake .#$(CONFIG); \
+	else \
+		echo "$(YELLOW)🔧 home-manager not found in PATH, using nix run...$(RESET)"; \
+		nix run nixpkgs#home-manager -- switch --flake .#$(CONFIG); \
+	fi
 endif
 	@echo "$(GREEN)✅ Quick install complete!$(RESET)"
 
@@ -239,7 +254,12 @@ quick-update: ## Quick update (no full rebuild)
 ifeq ($(UNAME_S),Darwin)
 	sudo darwin-rebuild switch --flake .
 else
-	home-manager switch --flake .
+	@if command -v home-manager >/dev/null 2>&1; then \
+		home-manager switch --flake .; \
+	else \
+		echo "$(YELLOW)🔧 home-manager not found in PATH, using nix run...$(RESET)"; \
+		nix run nixpkgs#home-manager -- switch --flake .; \
+	fi
 endif
 	@echo "$(GREEN)✅ Quick update complete!$(RESET)"
 
