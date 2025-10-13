@@ -73,11 +73,11 @@ install: install-deps ## Install the complete Nix environment
 	@echo "$(CYAN)Configuration: $(CONFIG)$(RESET)"
 	@echo ""
 	@echo "$(BLUE)🔨 Updating flake...$(RESET)"
-	nix flake update
+	nix flake update --extra-experimental-features "nix-command flakes"
 	@echo ""
 	@echo "$(GREEN)🔄 Switching to new configuration...$(RESET)"
 ifeq ($(UNAME_S),Darwin)
-	sudo nix build .#darwinConfigurations.$(CONFIG).system
+	sudo nix build .#darwinConfigurations.$(CONFIG).system --extra-experimental-features "nix-command flakes"
 	sudo ./result/sw/bin/darwin-rebuild switch --flake .#$(CONFIG)
 	@echo "$(BLUE)🧹 Cleaning up build artifacts...$(RESET)"
 	rm -rf result
