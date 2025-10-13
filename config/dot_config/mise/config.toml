@@ -1,3 +1,9 @@
 [tools]
 node = "latest"
 uv = "latest"
+python = "latest"
+go = "latest"
+rust = "latest"
+java = "latest"
+dotnet = "latest"
+

@@ -2,9 +2,13 @@
 autoload -U compinit; compinit
 
 # Shell
-alias ll="eza -la";
-alias la="eza -a";
-alias l="eza -l";
+alias -- eza='eza --icons auto --git'
+alias -- la='eza -a'
+alias -- l='eza -l'
+alias -- ll='eza -la'
+alias -- lla='eza -la'
+alias -- ls=eza
+alias -- lt='eza --tree'
 alias cat="bat";
 alias find="fd";
 alias grep="rg";
@@ -62,15 +66,6 @@ export PATH="/opt/homebrew/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Nvm
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 # Mise
 eval "$(mise activate zsh)"
 
@@ -78,3 +73,5 @@ eval "$(mise activate zsh)"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
 
+# Direnv integration
+eval "$(direnv hook zsh)"
