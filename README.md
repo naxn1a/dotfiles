@@ -15,7 +15,9 @@ A comprehensive Nix flake for managing development environments across multiple 
 1. **Clone this repository**:
    ```bash
    git clone <repository-url>
-   cd <repository-directory>
+
+   # MacOS
+   git clone <repository-url> ~/.local/share/chezmoi
    ```
 
 2. **Install the environment**:
