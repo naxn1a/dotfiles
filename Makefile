@@ -16,12 +16,12 @@ ifeq ($(UNAME_S),Darwin)
 		SYSTEM := aarch64-darwin
 		CONFIG := naxn1a-darwin
 		BUILD_CMD := darwin-rebuild
-		SWITCH_CMD := sudo darwin-rebuild switch
+		SWITCH_CMD := darwin-rebuild switch
 	else
 		SYSTEM := x86_64-darwin
 		CONFIG := naxn1a-darwin-intel
 		BUILD_CMD := darwin-rebuild
-		SWITCH_CMD := sudo darwin-rebuild switch
+		SWITCH_CMD := darwin-rebuild switch
 	endif
 	INSTALL_DEPS := brew install nix
 else ifeq ($(UNAME_S),Linux)
