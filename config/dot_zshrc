@@ -75,3 +75,7 @@ eval "$(starship init zsh)"
 
 # Direnv integration
 eval "$(direnv hook zsh)"
+
+# Factory.ai
+export PATH=/Users/naxn1a/.local/bin:$PATH
+
