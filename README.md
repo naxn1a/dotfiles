@@ -1,327 +1,292 @@
-# Naxn1a Nix Environment
+# Nix Environment Management
 
-A comprehensive Nix flake for managing development environments across multiple platforms (macOS, Linux, and Windows WSL2). This configuration provides a consistent, reproducible development setup with modern tools and utilities.
+A comprehensive, cross-platform Nix environment management system with support for both macOS (via Nix Darwin) and Linux (via Home Manager). This project provides a reproducible development environment with modern CLI tools, development utilities, and platform-specific configurations.
 
-## 🚀 Quick Start
+## Features
+
+- 🍎 **macOS Support** - Full Nix Darwin integration with Homebrew
+- 🐧 **Linux Support** - Home Manager configuration for Linux environments
+- 🛠️ **Modern Toolchain** - 2025-era CLI tools and development utilities
+- 🔄 **Cross-Platform** - Consistent experience across different systems
+- 📦 **Package Management** - Curated selection of essential tools
+- 🎨 **Rich CLI** - Beautiful terminal with modern replacements
+
+## Quick Start
 
 ### Prerequisites
 
-- **Git**: For cloning this repository
-- **Nix**: Will be installed automatically if not present
-- **Sudo access**: Required for system-level changes on macOS
+- [Nix](https://nixos.org/download.html) with experimental features enabled
+- Git for version control
 
 ### Installation
 
-1. **Clone this repository**:
-   ```bash
-   git clone <repository-url>
-
-   # MacOS
-   git clone <repository-url> ~/.local/share/chezmoi
-   ```
-
-2. **Install the environment**:
-   ```bash
-   make install
-   ```
-
-   This command will:
-   - Auto-detect your system (macOS/Linux/WSL2)
-   - Install Nix if not already present
-   - Update flake inputs
-   - Apply the appropriate configuration
-   - Set up your development environment
-
-3. **Restart your shell** to load all changes:
-   ```bash
-   source ~/.zshrc
-   # or simply restart your terminal
-   ```
-
-## 📋 Supported Systems
-
-| System | Architecture | Configuration | Command |
-|--------|--------------|---------------|---------|
-| macOS (Apple Silicon) | aarch64 | `naxn1a-darwin` | `make install` |
-| macOS (Intel) | x86_64 | `naxn1a-darwin-intel` | `make install` |
-| Linux | x86_64 | `naxn1a-linux` | `make install` |
-| Linux (ARM64) | aarch64 | `naxn1a-linux-arm` | `make install` |
-| Windows (WSL2) | x86_64 | `naxn1a-wsl` | `make install` |
-
-## 🛠️ Available Commands
-
-### Core Commands
-
+1. Clone this repository:
 ```bash
-make help          # Show all available commands
-make install       # Install complete environment (recommended)
-make quick-install # Quick installation (minimal checks)
-make update        # Update flake inputs and rebuild
-make switch        # Switch to current configuration (no update)
-make quick-update  # Quick update (no full rebuild)
+git clone <your-repo-url>
+cd <repo-directory>
 ```
 
-### Development
-
+2. Run the quick setup:
 ```bash
-make devenv        # Enter development environment
-make build         # Build configuration without switching
-make check         # Validate configuration
-make test          # Run configuration tests
+# For macOS
+make darwin-setup
+
+# For Linux
+make linux-setup
+
+# Or automatic detection
+make quick-setup
 ```
 
-### Maintenance
+## Usage
 
+### Makefile Commands
+
+The `Makefile` provides a comprehensive set of commands for managing your Nix environment:
+
+#### Setup & Installation
 ```bash
-make doctor        # Check system health and configuration
-make clean         # Clean Nix store (keep last 30 days)
-make clean-all     # Aggressive cleanup (removes old generations)
-make format        # Format Nix code
-make lint          # Lint Nix configuration
-make lint-fix      # Auto-fix linting issues
+make help              # Show all available commands
+make install           # Install Nix environment (auto-detects system)
+make install-darwin    # Install Nix-darwin (macOS only)
+make install-home      # Install Home Manager (Linux)
 ```
 
-### Information
-
+#### Updates & Maintenance
 ```bash
-make info          # Show system and configuration information
-make version       # Show version information
-make welcome       # Show welcome message and next steps
+make update            # Update flake and rebuild environment
+make rebuild           # Rebuild environment without updating flake
+make check             # Validate flake configuration
+make test              # Test environment functionality
 ```
 
-### Utilities
-
+#### Development
 ```bash
-make backup        # Backup current configuration
+make shell             # Enter development shell
+make build             # Build environment
+make search            # Search for packages in nixpkgs
 ```
 
-## 📦 What's Included
+#### System Management
+```bash
+make info              # Show system and configuration info
+make list-generations  # List Nix generations
+make rollback          # Rollback to previous generation
+```
 
-### Core Development Tools
-- **Shells**: Nushell, Zsh, Bash with Starship prompt
-- **Editors**: Neovim with default configuration
-- **Version Control**: Git, GitHub CLI, LazyGit, Delta for diff viewing
-- **Terminal Multiplexers**: Tmux, Zellij
+#### Cleanup
+```bash
+make clean             # Clean Nix store
+make clean-all         # Deep clean (removes old generations)
+```
 
-### Modern CLI Utilities
-- **File Operations**: `eza` (ls replacement), `bat` (cat replacement), `fd` (find replacement)
-- **Search**: `ripgrep` (grep replacement), `fzf` (fuzzy finder)
-- **System Monitoring**: `btop`, `htop`, `bandwhich`
-- **Network Tools**: `curl`, `wget`, `httpie`, `xh`
+#### Diagnostics
+```bash
+make doctor            # Run diagnostic checks
+make version           # Show version information
+make profile           # Profile environment performance
+```
 
-### Development Languages
-- **Rust**: rustc, cargo, cargo-watch, cargo-audit, clippy
-- **Node.js**: Latest stable version
-- **Python**: Latest stable version
-- **Go**: Latest stable version
+### Manual Nix Commands
 
-### Container Tools
-- **Podman**: Container management
-- **Podman Compose**: Multi-container applications
-- **Docker Compose**: Docker compose support
-- **LazyDocker**: Docker TUI
+If you prefer to use Nix directly:
 
-### Package Management
-- **Mise**: Modern runtime manager (replaces asdf/rtx)
-- **Direnv**: Environment management per directory
-- **Nix Homebrew Integration** (macOS only)
+```bash
+# Enter development shell
+nix develop
 
-### Platform-Specific Tools
+# Build environment
+nix build .#packages.default
 
-#### macOS
-- **Homebrew**: Integrated with Nix for packages not available in nixpkgs
-- **Applications**: Docker Desktop, Raycast, Obsidian, Zed, Claude, Ghostty, etc.
-- **macOS Utilities**: m-cli for system management
+# Update flake
+nix flake update
 
-#### Linux/WSL2
+# Check configuration
+nix flake check
+
+# Rebuild configuration
+nix run .#apps.update
+```
+
+## Environment Structure
+
+### Core Components
+
+#### flake.nix
+The main configuration file that defines:
+- **Inputs**: Nixpkgs, Nix Darwin, Home Manager, and utilities
+- **Packages**: Curated toolsets for different platforms
+- **Shells**: Development environments with all tools
+- **Configurations**: System-specific setups for macOS and Linux
+
+#### Makefile
+Cross-platform automation tool that provides:
+- **System Detection**: Automatically identifies macOS/Linux and architecture
+- **Installation Scripts**: Platform-appropriate setup commands
+- **Maintenance Tasks**: Updates, cleanup, and diagnostics
+- **Emergency Tools**: Rollback and recovery options
+
+### Package Categories
+
+#### Core Shells & Terminals
+- **Nushell** - Modern shell with structured data
+- **Zsh** - Feature-rich shell with extensive customization
+- **Starship** - Minimal, fast, and customizable prompt
+
+#### Modern CLI Replacements
+- `eza` - Modern `ls` replacement with colors and icons
+- `bat` - `cat` replacement with syntax highlighting
+- `fd` - Intuitive `find` replacement
+- `ripgrep` - Fast `grep` replacement with advanced features
+- `du-dust` - Visual `du` replacement
+- `procs` - Modern `ps` replacement
+- `sd` - Intuitive `sed` replacement
+- `choose` - User-friendly `cut` replacement
+- `xh` - Modern HTTP client (curl/httpie replacement)
+
+#### Development Tools
+- **Git Ecosystem**: Git, GitHub CLI (`gh`), Lazygit, Delta
+- **Editors**: Terminal multiplexers (Tmux, Zellij)
+- **Fuzzy Finding**: FZF for interactive filtering
+- **Environment**: Direnv for per-directory environment variables
+- **Runtime Management**: Mise (modern asdf/rtx replacement)
+- **Task Runner**: Just for command automation
+
+#### Container & DevOps
+- **Podman** - Daemonless container engine
+- **Docker Compose** - Multi-container application orchestration
+- **Lazydocker** - Terminal UI for Docker management
+
+#### Security & Networking
+- **Network Tools**: nmap, Wireshark CLI
+- **Monitoring**: bandwhich, gping for network analysis
+
+#### AI/LLM Tools
+- **Ollama** - Local LLM management
+
+### Platform-Specific Packages
+
+#### macOS (Nix Darwin)
+- **Apple Frameworks**: Security, CoreFoundation, AppKit
+- **Homebrew Integration**: Automatic updates and cleanup
+- **GUI Applications**: Raycast, Obsidian, Zed, Claude, etc.
+- **Development Tools**: Docker Desktop, ngrok
+- **Browsers**: Chrome, Brave
+- **Security**: Mullvad VPN
+- **Terminal**: Ghostty
+- **Productivity**: Notion, Spotify
+
+#### Linux (Home Manager)
 - **Development Tools**: GCC, make, pkg-config
-- **System Integration**: X11/Wayland support, clipboard utilities
-- **Package Managers**: Flatpak, Snap support
+- **Desktop Integration**: X11 utilities, libnotify
+- **System Monitoring**: inotify-tools, lm_sensors, acpi
+- **Package Management**: Flatpak support
 
-## 🏠 Home Manager Configuration
+## Configuration Details
 
-This flake includes comprehensive Home Manager configurations for:
+### System Detection
 
-### Shell Environment
-- **Zsh**: Enhanced with completions, syntax highlighting, and autosuggestions
-- **Starship**: Custom prompt with git integration
-- **Direnv**: Automatic environment loading
-- **Mise**: Runtime version management
+The Makefile automatically detects:
+- **Operating System**: macOS (Darwin) or Linux
+- **Architecture**: x86_64 or aarch64 (ARM)
+- **Configuration Name**: Hostname (macOS) or username@linux (Linux)
 
-### Git Configuration
-- User: "Naxn1a" (email should be configured)
-- Default branch: main
-- Rebase by default
-- Advanced diff and merge tools
+### Configuration Names
 
-### Terminal Tools
-- **Bat**: Syntax highlighting with themes
-- **eza**: Modern ls with icons and git integration
-- **fzf**: Fuzzy finding with file previews
-- **ripgrep**: Fast text search
+The system uses these identifiers:
+- **macOS**: Based on hostname (e.g., "MacBook-Pro", "Mac-mini")
+- **Linux**: Based on username (e.g., "naxn1a@linux")
 
-## 🔧 Manual Installation (Alternative)
-
-If you prefer to install without using the Makefile:
-
-### 1. Install Nix (if not already installed)
-
-**macOS**:
-```bash
-brew install nix
-```
-
-**Linux**:
-```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-```
-
-### 2. Enable Flakes
-
-Add to your `/etc/nix/nix.conf` (or create it):
-```
-experimental-features = nix-command flakes
-```
-
-### 3. Apply Configuration
-
-**macOS**:
-```bash
-# For Apple Silicon
-sudo nix build .#darwinConfigurations.naxn1a-darwin.system
-sudo ./result/sw/bin/darwin-rebuild switch --flake .#naxn1a-darwin
-
-# For Intel Macs
-sudo nix build .#darwinConfigurations.naxn1a-darwin-intel.system
-sudo ./result/sw/bin/darwin-rebuild switch --flake .#naxn1a-darwin-intel
-
-# Cleanup
-rm -rf result
-```
-
-**Linux**:
-```bash
-# Standard Linux
-home-manager switch --flake .#naxn1a-linux
-
-# WSL2
-home-manager switch --flake .#naxn1a-wsl
-
-# ARM64 Linux
-home-manager switch --flake .#naxn1a-linux-arm
-```
-
-## 🔍 Troubleshooting
-
-### Common Issues
-
-1. **Permission Denied (macOS)**
-   - Ensure you have sudo access
-   - Try `sudo darwin-rebuild switch --flake .` instead
-
-2. **Nix Command Not Found**
-   - Restart your shell or run `source ~/.nix-profile/etc/profile.d/nix.sh`
-
-3. **Flake Check Fails**
-   - Run `make doctor` to check system health
-   - Ensure all inputs are accessible: `nix flake update`
-
-4. **Home Manager Not Found**
-   - Install it: `nix profile install nixpkgs#home-manager`
-
-5. **Build Fails**
-   - Check disk space: `df -h`
-   - Clean old generations: `make clean`
-   - Check flake configuration: `make check`
-
-### Getting Help
-
-- Run `make doctor` for system health check
-- Check the flake metadata: `nix flake metadata`
-- Validate configuration: `make check`
-- View all commands: `make help`
-
-## 🔄 Updates
-
-### Regular Updates
-```bash
-make update    # Updates flake inputs and rebuilds
-```
-
-### Quick Updates
-```bash
-make quick-update  # Updates without full rebuild
-```
-
-### Manual Updates
-```bash
-nix flake update  # Update inputs only
-make switch       # Apply current configuration
-```
-
-## 🗂️ Project Structure
+### Flake Structure
 
 ```
 .
-├── flake.nix          # Main configuration file
-├── Makefile           # Cross-platform build automation
-├── README.md          # This file
-└── backups/           # Configuration backups (created by make backup)
+├── flake.nix          # Main configuration
+├── Makefile           # Automation scripts
+├── home.nix           # Home Manager configuration (if exists)
+└── README.md          # This file
 ```
 
-## 🎯 Development Environments
+## Development Workflow
 
-This flake provides specialized development shells:
+### Daily Use
 
-### Default Environment
+1. **Enter Development Shell**:
+   ```bash
+   make shell
+   # or
+   nix develop
+   ```
+
+2. **Update Environment**:
+   ```bash
+   make update
+   ```
+
+3. **Test Changes**:
+   ```bash
+   make check
+   make test
+   ```
+
+### Adding New Packages
+
+1. Edit `flake.nix` and add packages to the appropriate section
+2. Update the flake: `make update`
+3. Test the configuration: `make test`
+4. Rebuild if needed: `make rebuild`
+
+### Platform-Specific Customization
+
+#### macOS
+Add packages to the `essentialPackages` or `homebrew.brews`/`homebrew.casks` arrays in `flake.nix`.
+
+#### Linux
+Add packages to the Linux-specific section in `homeConfigurations`.
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Nix Not Found**: Install Nix first from https://nixos.org/download.html
+2. **Permission Errors**: Ensure proper Nix configuration and user permissions
+3. **Flake Check Fails**: Run `make doctor` for diagnostics
+4. **Build Failures**: Check system dependencies and disk space
+
+### Emergency Recovery
+
 ```bash
-nix develop          # Includes Rust, Node.js, Python, Go
+# Rollback to previous working configuration
+make rollback
+
+# Emergency rebuild
+make emergency-rebuild
+
+# Clean up problematic builds
+make clean-all
 ```
 
-### Rust Environment
-```bash
-nix develop .#rust   # Rust-specific tools and toolchain
-```
+### Getting Help
 
-### Web Development
-```bash
-nix develop .#web    # Node.js and TypeScript tools
-```
+- `make help` - Show all available commands
+- `make doctor` - Run system diagnostics
+- `make info` - Display system information
 
-## 📝 Customization
+## Contributing
 
-### Adding Packages
-Edit `flake.nix` and add packages to the appropriate section:
-- `commonPackages`: For all platforms
-- `darwinPackages`: macOS only
-- `linuxPackages`: Linux only
-
-### Modifying Configuration
-- **Git settings**: Modify `programs.git` in `commonHomeConfig`
-- **Shell configuration**: Edit `programs.zsh` sections
-- **Homebrew (macOS)**: Modify `homebrew.brews` and `homebrew.casks`
-
-### Adding New Systems
-1. Add system to `forAllSystems` in `flake.nix`
-2. Create new configuration in the appropriate section
-3. Update Makefile system detection if needed
-
-## 🤝 Contributing
-
-1. Fork this repository
+1. Fork the repository
 2. Create a feature branch
-3. Test your changes: `make check && make test`
-4. Format your code: `make format`
+3. Make your changes
+4. Test with `make check` and `make test`
 5. Submit a pull request
 
-## 📄 License
+## License
 
-This configuration is provided as-is for personal use. Feel free to modify and adapt it to your needs.
+This project is licensed under the MIT License.
 
-## 🔗 Useful Resources
+## Acknowledgments
 
-- [Nix Manual](https://nixos.org/manual/nix/)
-- [Home Manager Manual](https://nix-community.github.io/home-manager/)
-- [Nix Flakes](https://nixos.wiki/wiki/Flakes)
-- [Nix Pills](https://nixos.org/guides/nix-pills/)
-- [Determinate Systems Nix Installer](https://github.com/DeterminateSystems/nix-installer)
+- [Nix](https://nixos.org/) - The purely functional package manager
+- [Nix Darwin](https://github.com/LnL7/nix-darwin) - Nix modules for macOS
+- [Home Manager](https://github.com/nix-community/home-manager) - User environment management
+- [Flake Utils](https://github.com/numtide/flake-utils) - Utilities for Nix flakes
