@@ -11,11 +11,25 @@ SHELL := /bin/bash
 UNAME_S := $(shell uname -s)
 FLAKE_DIR := $(shell pwd)
 BACKUP_DIR := $(HOME)/.nix-backup-$(shell date +%Y%m%d-%H%M%S)
-COLOR_GREEN := \033[0;32m
-COLOR_BLUE := \033[0;34m
-COLOR_YELLOW := \033[0;33m
-COLOR_RED := \033[0;31m
-COLOR_RESET := \033[0m
+
+# Color variables (cross-platform compatible)
+ifeq ($(shell tput colors 2>/dev/null || echo 0), 0)
+    # No color support
+    COLOR_GREEN :=
+    COLOR_BLUE :=
+    COLOR_YELLOW :=
+    COLOR_RED :=
+    COLOR_BOLD :=
+    COLOR_RESET :=
+else
+    # Use tput for better compatibility
+    COLOR_GREEN := $(shell tput setaf 2 2>/dev/null || echo "")
+    COLOR_BLUE := $(shell tput setaf 4 2>/dev/null || echo "")
+    COLOR_YELLOW := $(shell tput setaf 3 2>/dev/null || echo "")
+    COLOR_RED := $(shell tput setaf 1 2>/dev/null || echo "")
+    COLOR_BOLD := $(shell tput bold 2>/dev/null || echo "")
+    COLOR_RESET := $(shell tput sgr0 2>/dev/null || echo "")
+endif
 
 # Detect platform
 ifeq ($(UNAME_S),Darwin)
@@ -53,7 +67,7 @@ install: ## Install configuration for detected platform
 install-darwin: ## Install Nix-Darwin configuration (macOS)
 	@echo "$(COLOR_GREEN)🍎 Installing Nix-Darwin configuration...$(COLOR_RESET)"
 	@echo "$(COLOR_YELLOW)⚠️  This will replace your current system configuration$(COLOR_RESET)"
-	@read -p "Continue? (y/N) " confirm && [ "$$confirm" = "y" ] || exit 1
+	@echo "$(COLOR_GREEN)→ Continuing automatically...$(COLOR_RESET)"
 	@$(MAKE) backup
 	@$(MAKE) check
 	@echo "$(COLOR_BLUE)📦 Building configuration...$(COLOR_RESET)"
@@ -66,7 +80,7 @@ install-darwin: ## Install Nix-Darwin configuration (macOS)
 install-linux: ## Install Home-Manager configuration (Linux)
 	@echo "$(COLOR_GREEN)🐧 Installing Home-Manager configuration...$(COLOR_RESET)"
 	@echo "$(COLOR_YELLOW)⚠️  This will replace your current home configuration$(COLOR_RESET)"
-	@read -p "Continue? (y/N) " confirm && [ "$$confirm" = "y" ] || exit 1
+	@echo "$(COLOR_GREEN)→ Continuing automatically...$(COLOR_RESET)"
 	@$(MAKE) backup
 	@$(MAKE) check
 	@echo "$(COLOR_BLUE)📦 Building configuration...$(COLOR_RESET)"
@@ -106,7 +120,7 @@ clean: ## Clean Nix store and build artifacts
 
 clean-all: ## Deep clean including old generations
 	@echo "$(COLOR_YELLOW)⚠️  This will remove old system generations$(COLOR_RESET)"
-	@read -p "Continue? (y/N) " confirm && [ "$$confirm" = "y" ] || exit 1
+	@echo "$(COLOR_GREEN)→ Continuing automatically...$(COLOR_RESET)"
 	@echo "$(COLOR_BLUE)🧹 Deep cleaning...$(COLOR_RESET)"
 	nix-collect-garbage -d
 	@echo "$(COLOR_GREEN)✅ Deep cleanup complete!$(COLOR_RESET)"
@@ -185,6 +199,18 @@ restore: ## Restore from backup (interactive)
 		echo "$(COLOR_RED)Restore cancelled$(COLOR_RESET)"; \
 	fi
 
+restore-latest: ## Restore from latest backup automatically
+	@echo "$(COLOR_BLUE)📂 Finding latest backup...$(COLOR_RESET)"
+	@latest_backup=$$(ls -td "$(HOME)/.nix-backup-"* 2>/dev/null | head -1); \
+	if [ -n "$$latest_backup" ] && [ -d "$$latest_backup" ]; then \
+		echo "$(COLOR_YELLOW)📁 Restoring from: $$latest_backup$(COLOR_RESET)"; \
+		echo "$(COLOR_GREEN)→ Continuing automatically...$(COLOR_RESET)"; \
+		cp -r "$$latest_backup"/* "$(HOME)/"; \
+		echo "$(COLOR_GREEN)✅ Restore complete!$(COLOR_RESET)"; \
+	else \
+		echo "$(COLOR_RED)No backups found$(COLOR_RESET)"; \
+	fi
+
 format: ## Format Nix files
 	@echo "$(COLOR_BLUE)🎨 Formatting Nix files...$(COLOR_RESET)"
 	@find . -name "*.nix" -exec nixfmt {} \; 2>/dev/null || echo "$(COLOR_YELLOW)nixfmt not available, install with: nix-env -iA nixpkgs.nixfmt$(COLOR_RESET)"
@@ -240,6 +266,7 @@ version: ## Show version information
 uninstall: ## Uninstall Nix configuration
 	@echo "$(COLOR_RED)⚠️  This will remove all Nix configurations$(COLOR_RESET)"
 	@echo "$(COLOR_RED)⚠️  This is a destructive operation$(COLOR_RESET)"
+	@echo "$(COLOR_YELLOW)💡 To skip confirmation, use: make uninstall-force$(COLOR_RESET)"
 	@read -p "Type 'uninstall' to confirm: " confirm && [ "$$confirm" = "uninstall" ] || exit 1
 	@$(MAKE) backup
 	@if [ "$(PLATFORM)" = "darwin" ]; then \
@@ -250,4 +277,17 @@ uninstall: ## Uninstall Nix configuration
 	@echo "$(COLOR_YELLOW)🗑️  Removing profiles...$(COLOR_RESET)"
 	@rm -rf "$(HOME)/.nix-profile" "$(HOME)/.config/nixpkgs"
 	@echo "$(COLOR_GREEN)✅ Uninstall complete$(COLOR_RESET)"
+	@echo "$(COLOR_YELLOW)📁 Backup available at: $(BACKUP_DIR)$(COLOR_RESET)"
+
+uninstall-force: ## Uninstall Nix configuration without confirmation
+	@echo "$(COLOR_RED)🔥 Force uninstalling Nix configuration...$(COLOR_RESET)"
+	@$(MAKE) backup
+	@if [ "$(PLATFORM)" = "darwin" ]; then \
+		darwin-rebuild switch --flake .#$(HOSTNAME) --rollback 2>/dev/null || true; \
+	else \
+		home-manager switch --flake .#$(USER) --rollback 2>/dev/null || true; \
+	fi
+	@echo "$(COLOR_YELLOW)🗑️  Removing profiles...$(COLOR_RESET)"
+	@rm -rf "$(HOME)/.nix-profile" "$(HOME)/.config/nixpkgs"
+	@echo "$(COLOR_GREEN)✅ Force uninstall complete$(COLOR_RESET)"
 	@echo "$(COLOR_YELLOW)📁 Backup available at: $(BACKUP_DIR)$(COLOR_RESET)"

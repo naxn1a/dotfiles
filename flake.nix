@@ -115,9 +115,11 @@
       # Modern Git configuration
       programs.git = {
         enable = true;
-        userName = "naxn1a";
-        userEmail = "";
-        extraConfig = {
+        settings = {
+          user = {
+            name = "naxn1a";
+            email = "";
+          };
           init.defaultBranch = "main";
           pull.rebase = true;
           fetch.prune = true;
@@ -130,7 +132,6 @@
           tag.sort = "version:refname";
 
           # Security
-          pull.rebase = true;
           fetch.fsckObjects = true;
           receive.fsckObjects = true;
         };
@@ -153,11 +154,10 @@
       # Security tools configuration
       programs.gpg = {
         enable = true;
-        homedir = "${config.home.homeDirectory}/.gnupg";
         settings = {
-          default-key = "";
-          trust-model = "tofu";
-          encrypt-to = "";
+          "default-key" = "";
+          "trust-model" = "tofu";
+          "encrypt-to" = "";
         };
       };
 
@@ -166,7 +166,7 @@
 
   in {
     # macOS Darwin configuration
-    darwinConfigurations."naxn1a-darwin" = darwin.lib.darwinSystem {
+    darwinConfigurations."Naxn1as-MacBook-Air" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         # nix-homebrew integration
@@ -257,20 +257,17 @@
             cores = 0;  # Use all available cores
             max-jobs = "auto";
 
-            # Binary cache configuration
+            # Binary cache configuration - temporarily disabled to avoid key issues
             substituters = [
               "https://cache.nixos.org"
-              "https://nix-community.cachix.org"
-              "https://devenv.cachix.org"
             ];
             trusted-public-keys = [
               "cache.nixos.org-1:6NCHdD592447YH2G+2Xnl8cAq8F9t2s4Q4KpW+OjMg="
-              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-              "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
             ];
 
             # Auto-optimization
-            auto-optimise-store = true;
+            optimise = true;
+            auto-optimise-store = false;  # Deprecated, use optimise.automatic instead
             keep-derivations = true;
             keep-outputs = true;
 
