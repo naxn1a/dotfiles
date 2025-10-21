@@ -1,5 +1,23 @@
-# Initialize completion
-autoload -U compinit; compinit
+# Direnv integration
+eval "$(direnv hook zsh)"
+
+# Homebrew
+export PATH="/opt/homebrew/bin:$PATH"
+
+# Starship
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+eval "$(starship init zsh)"
+
+# Mise
+eval "$(mise activate zsh)"
+
+# Bun
+[ -s "/Users/naxn1a/.bun/_bun" ] && source "/Users/naxn1a/.bun/_bun"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Factory.ai
+export PATH=/Users/naxn1a/.local/bin:$PATH
 
 # Shell
 alias -- eza='eza --icons auto --git'
@@ -22,60 +40,10 @@ alias nv="nvim"
 # Tmux
 alias tm="tmux"
 
-# Docker
-alias dk="docker ps"
-alias dkcu="docker compose up -d"
-alias dkcd="docker compose down -v"
-alias dkcl="docker compose logs -f"
-alias dkrmi="docker image prune -af"
-alias dkrmv="docker volume prune -af"
-alias dkrmb="docker builder prune -af"
-
-# Podman
-alias pd="podman"
-
-# Podman Compose
-alias pdc="podman-compose"
-alias pdcu="podman-compose up -d"
-alias pdcd="podman-compose down -v"
-alias pdcl="podman-compose logs -f"
-alias pdrmi="podman image prune -af"
-alias pdrmv="podman volume prune -af"
-alias pdrmb="podman builder prune -af"
-
 # Lazy
 alias lzg="lazygit"
 alias lzd="lazydocker"
 
 # Chezmoi
 alias cz="chezmoi"
-
-# Oh My Zsh
-# export ZSH="$HOME/.oh-my-zsh"
-# ZSH_THEME="robbyrussell"
-# plugins=(git)
-# source $ZSH/oh-my-zsh.sh
-
-# Homebrew
-export PATH="/opt/homebrew/bin:$PATH"
-
-# Bun Completions
-[ -s "/Users/naxn1a/.bun/_bun" ] && source "/Users/naxn1a/.bun/_bun"
-
-# Bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# Mise
-eval "$(mise activate zsh)"
-
-# Starship
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-eval "$(starship init zsh)"
-
-# Direnv integration
-eval "$(direnv hook zsh)"
-
-# Factory.ai
-export PATH=/Users/naxn1a/.local/bin:$PATH
 
