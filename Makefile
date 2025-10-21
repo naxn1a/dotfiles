@@ -70,9 +70,9 @@ install-linux: ## Install Home-Manager configuration (Linux)
 	@echo "$(COLOR_GREEN)🐧 Installing Home-Manager configuration...$(COLOR_RESET)"
 	@if ! command -v home-manager >/dev/null 2>&1; then \
 		@echo "$(COLOR_BLUE)📦 Installing home-manager...$(COLOR_RESET)"; \
-		sudo nix run home-manager --extra-experimental-features "nix-command flakes"  -- switch --flake .#naxn1a-linux; \
+		nix run home-manager --extra-experimental-features "nix-command flakes"  -- switch --flake .#naxn1a-linux; \
 	else \
-		sudo home-manager switch --flake .#naxn1a-linux; \
+		home-manager switch --flake .#naxn1a-linux; \
 	fi
 	@echo "$(COLOR_GREEN)✅ Installation complete!$(COLOR_RESET)"
 	@echo "$(COLOR_YELLOW)🔄 Please restart your shell to see changes$(COLOR_RESET)"

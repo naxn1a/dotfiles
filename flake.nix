@@ -221,7 +221,7 @@
 
     # home-manager
     homeConfigurations."naxn1a-linux" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legactPackages.x86_64-linux;
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
 	      commonHomeConfig
 	      {
