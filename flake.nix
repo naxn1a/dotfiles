@@ -74,7 +74,7 @@
       ollama
 
       # Package manager
-      mise
+      # mise
 
       # Security tools
       exiftool
@@ -154,6 +154,7 @@
 	          enable = true;
 	          brews = [
 	            "chezmoi"
+	            "mise"
 	          ];
 	          casks = [
 	            # Essential app
