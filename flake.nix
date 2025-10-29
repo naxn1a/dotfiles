@@ -50,7 +50,7 @@
       bat
       fd
       ripgrep
-      du-dust
+      dust
       procs
       sd
       xh
