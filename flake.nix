@@ -161,7 +161,6 @@
 	            "raycast"
 	            "obsidian"
 	            "notion"
-	            "krita"
 
 	            # Browsers
               "google-chrome"
