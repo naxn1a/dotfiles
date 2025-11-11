@@ -172,6 +172,7 @@
 	            "docker-desktop"
               "ngrok"
 	            "claude"
+	            "claude-code"
 
 	            # Terminal & Utilities
 	            "ghostty"
