@@ -155,6 +155,7 @@
 	          brews = [
 	            "chezmoi"
 	            "mise"
+	            "gemini-cli"
 	          ];
 	          casks = [
 	            # Essential app
@@ -173,7 +174,6 @@
               "ngrok"
 	            "claude"
 	            "claude-code"
-	            "gemini-cli"
 
 	            # Terminal & Utilities
 	            "ghostty"
