@@ -71,7 +71,7 @@
       podman-compose
 
       # AI/ML
-      ollama
+      # ollama
 
       # Package manager
       # mise
@@ -173,6 +173,7 @@
               "ngrok"
 	            "claude"
 	            "claude-code"
+	            "gemini-cli"
 
 	            # Terminal & Utilities
 	            "ghostty"
