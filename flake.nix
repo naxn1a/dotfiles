@@ -184,6 +184,9 @@
 
 	            # Entertainment
 	            "spotify"
+
+	            # Games
+	            "robloxstudio"
 	          ];
 	          onActivation = {
 	            cleanup = "zap";
