@@ -156,6 +156,7 @@
 	            "chezmoi"
 	            "mise"
 	            "gemini-cli"
+	            "opencode"
 	          ];
 	          casks = [
 	            # Essential app
