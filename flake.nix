@@ -173,11 +173,11 @@
 	            "zed"
 	            "docker-desktop"
               "ngrok"
-	            "claude"
 	            "claude-code"
+	            "bruno"
 
 	            # Terminal & Utilities
-	            "ghostty"
+	            # "ghostty"
               # "utm"
 
 	            # Security & Privacy
@@ -187,7 +187,7 @@
 	            "spotify"
 
 	            # Games
-	            "robloxstudio"
+	            # "robloxstudio"
 	          ];
 	          onActivation = {
 	            cleanup = "zap";
