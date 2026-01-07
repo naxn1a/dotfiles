@@ -175,6 +175,7 @@
               "ngrok"
 	            "claude-code"
 	            "bruno"
+	            "antigravity"
 
 	            # Terminal & Utilities
 	            # "ghostty"
