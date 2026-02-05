@@ -176,6 +176,7 @@
 	            "claude-code"
 	            "bruno"
 	            "antigravity"
+	            "cursor"
 
 	            # Terminal & Utilities
 	            # "ghostty"
