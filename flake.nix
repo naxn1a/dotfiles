@@ -170,6 +170,7 @@
               # "arc"
 
 	            # Dev tools
+	            "visual-studio-code"
 	            "zed"
 	            "docker-desktop"
               "ngrok"
@@ -190,6 +191,9 @@
 
 	            # Games
 	            # "robloxstudio"
+
+	            # Producer
+	            "ableton-live-suite"
 	          ];
 	          onActivation = {
 	            cleanup = "zap";
