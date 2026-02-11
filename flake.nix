@@ -169,15 +169,19 @@
               "brave-browser"
               # "arc"
 
-	            # Dev tools
+              # IDE
 	            "visual-studio-code"
 	            "zed"
-	            "docker-desktop"
+	            "antigravity"
+	            "cursor"
+	            "windsurf"
+
+	            # Dev tools
+	            # "docker-desktop"
               "ngrok"
 	            "claude-code"
 	            "bruno"
-	            "antigravity"
-	            "cursor"
+	            "orbstack"
 
 	            # Terminal & Utilities
 	            # "ghostty"
@@ -191,6 +195,9 @@
 
 	            # Games
 	            # "robloxstudio"
+
+	            # Security
+	            # "caido"
 
 	            # Producer
 	            "ableton-live-suite"
