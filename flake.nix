@@ -179,9 +179,11 @@
 	            # Dev tools
 	            # "docker-desktop"
               "ngrok"
+	            "claude"
 	            "claude-code"
 	            "bruno"
 	            "orbstack"
+	            "dbeaver-community"
 
 	            # Terminal & Utilities
 	            # "ghostty"
