@@ -109,6 +109,11 @@ check: ## Check system requirements
 	fi
 	@echo "$(COLOR_GREEN)🟢 Check passed!$(COLOR_RESET)"
 
+upgrade:
+	brew update && brew upgrade
+	mise upgrade --bump
+	bun upgrade
+
 info: ## Show configuration information
 	@echo "$(COLOR_BLUE)📋 Configuration Information$(COLOR_RESET)"
 	@echo "$(COLOR_BLUE)===========================$(COLOR_RESET)"
