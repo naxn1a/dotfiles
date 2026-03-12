@@ -184,6 +184,7 @@
 	            "bruno"
 	            "orbstack"
 	            "dbeaver-community"
+	            "cmux"
 
 	            # Terminal & Utilities
 	            # "ghostty"
