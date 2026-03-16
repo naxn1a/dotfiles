@@ -12,12 +12,12 @@ eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 
 # Bun
-[ -s "/Users/naxn1a/.bun/_bun" ] && source "/Users/naxn1a/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Factory.ai
-export PATH=/Users/naxn1a/.local/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
 
 # Shell
 alias -- eza='eza --icons auto --git'

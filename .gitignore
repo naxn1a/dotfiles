@@ -18,3 +18,8 @@ $RECYCLE.BIN/
 *.log
 *.lock
 
+# Secrets
+*.age
+*.enc
+secrets/
+
