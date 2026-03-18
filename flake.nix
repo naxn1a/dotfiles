@@ -157,6 +157,9 @@
 	            "mise"
 	            "gemini-cli"
 	            "opencode"
+
+	            # Clean MacOS
+	            "mole"
 	          ];
 	          casks = [
 	            # Essential app
