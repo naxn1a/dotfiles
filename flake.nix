@@ -155,6 +155,8 @@
 	          brews = [
 	            "chezmoi"
 	            "mise"
+
+	            # Dev tools
 	            "gemini-cli"
 	            "opencode"
 
@@ -184,6 +186,8 @@
               "ngrok"
 	            "claude"
 	            "claude-code"
+	            "codex"
+	            "copilot-cli"
 	            "bruno"
 	            "orbstack"
 	            "dbeaver-community"
