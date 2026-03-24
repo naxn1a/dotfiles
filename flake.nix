@@ -63,7 +63,7 @@
       atuin
       mcfly
       cheat
-      direnv
+      # direnv
 
       # Container
       docker-compose
@@ -155,6 +155,7 @@
 	          brews = [
 	            "chezmoi"
 	            "mise"
+	            "direnv"
 
 	            # Dev tools
 	            "gemini-cli"
@@ -190,8 +191,11 @@
 	            "copilot-cli"
 	            "bruno"
 	            "orbstack"
-	            "dbeaver-community"
 	            "cmux"
+
+	            # Database
+	            # "dbeaver-community"
+	            "dbgate"
 
 	            # Terminal & Utilities
 	            # "ghostty"
