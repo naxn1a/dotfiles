@@ -1,8 +1,8 @@
-# Direnv integration
-eval "$(direnv hook zsh)"
-
 # Homebrew
 export PATH="/opt/homebrew/bin:$PATH"
+
+# Direnv integration
+eval "$(direnv hook zsh)"
 
 # Starship
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
@@ -15,9 +15,6 @@ eval "$(mise activate zsh)"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
-# Factory.ai
-export PATH="$HOME/.local/bin:$PATH"
 
 # Shell
 alias -- eza='eza --icons auto --git'
@@ -46,4 +43,3 @@ alias lzd="lazydocker"
 
 # Chezmoi
 alias cz="chezmoi"
-
