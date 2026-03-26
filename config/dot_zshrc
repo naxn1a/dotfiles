@@ -27,9 +27,9 @@ alias -- ll='eza -la'
 alias -- lla='eza -la'
 alias -- ls=eza
 alias -- lt='eza --tree'
-alias cat="bat";
-alias find="fd";
-alias grep="rg";
+alias cat="bat"
+alias find="fd"
+alias grep="rg"
 
 # Git
 alias gs="git status"

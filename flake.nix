@@ -176,11 +176,11 @@
               "orion"
 
               # IDE
-	            "visual-studio-code"
-	            "zed"
-	            "antigravity"
+	            # "visual-studio-code"
+	            # "zed"
+	            # "antigravity"
 	            "cursor"
-	            "windsurf"
+	            # "windsurf"
 
 	            # Dev tools
 	            # "docker-desktop"
@@ -188,7 +188,7 @@
 	            "claude"
 	            "claude-code"
 	            "codex"
-	            "copilot-cli"
+	            # "copilot-cli"
 	            "bruno"
 	            "orbstack"
 	            "cmux"
