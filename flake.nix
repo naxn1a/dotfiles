@@ -171,9 +171,9 @@
 	            "notion"
 
 	            # Browsers
-              "google-chrome"
+              # "google-chrome"
               "brave-browser"
-              # "arc"
+              "orion"
 
               # IDE
 	            "visual-studio-code"
