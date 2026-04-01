@@ -114,6 +114,8 @@ upgrade:
 	mise upgrade --bump
 	bun upgrade
 
+up: update upgrade
+
 info: ## Show configuration information
 	@echo "$(COLOR_BLUE)📋 Configuration Information$(COLOR_RESET)"
 	@echo "$(COLOR_BLUE)===========================$(COLOR_RESET)"
