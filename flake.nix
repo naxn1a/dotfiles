@@ -176,7 +176,7 @@
               "orion"
 
               # IDE
-	            # "visual-studio-code"
+	            "visual-studio-code"
 	            # "zed"
 	            # "antigravity"
 	            "cursor"
